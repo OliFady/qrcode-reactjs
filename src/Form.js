@@ -15,6 +15,7 @@ function Form() {
     try {
       let res = await fetch("https://scouts-qrcode.onrender.com/api", {
         method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: formData,
       });
       console.log(res);
