@@ -1,37 +1,36 @@
 import React, { useState } from "react";
 import "./Form.css";
+import Html5QrcodePlugin from "./Html5QrcodePlugin.jsx";
+import ResultContainerPlugin from "./ResultContainerPlugin.jsx";
+import axios from "axios";
 
-function Form() {
-  const [file, setFile] = useState();
-  function handleChange(event) {
-    setFile(event.target.files[0]);
-  }
-  let handleSubmit = async (e) => {
-    e.preventDefault();
+function Form(props) {
+  const [decodedResults, setDecodedResults] = useState([]);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      let res = await fetch("https://scouts-qrcode.onrender.com/api", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData,
-      });
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+  const onNewScanResult = async (decodedText, decodedResult) => {
+    await setDecodedResults((prev) => [...prev, decodedResult]);
+    await onScannedData(decodedText);
   };
+
+  const onScannedData = async (data) => {
+    const response = await axios.post("http://localhost:8080/api", data, {
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      responseType: "text",
+    });
+    console.log(response.data);
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="images" className="drop-container" id="dropcontainer">
-          <input type="file" onChange={handleChange} accept="image/*" capture />
-          <input type="submit" className="form-submit-button" value="Submit" />
-        </label>
-      </form>
-      {/* {uploadedFile && <img src={uploadedFile} alt="Uploaded content" />} */}
+      <Html5QrcodePlugin
+        fps={10}
+        qrbox={200}
+        disableFlip={false}
+        qrCodeSuccessCallback={onNewScanResult}
+      />
+      <ResultContainerPlugin results={decodedResults} />
     </div>
   );
 }
