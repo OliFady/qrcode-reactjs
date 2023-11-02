@@ -13,12 +13,16 @@ function Form(props) {
   };
 
   const onScannedData = async (data) => {
-    const response = await axios.post("http://localhost:8080/api", data, {
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      responseType: "text",
-    });
+    const response = await axios.post(
+      "https://scouts-qrcode.onrender.com/api",
+      data,
+      {
+        headers: {
+          "Content-Type": "text/plain",
+        },
+        responseType: "text",
+      }
+    );
     console.log(response.data);
   };
 
