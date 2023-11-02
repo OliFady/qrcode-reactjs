@@ -12,7 +12,7 @@ function AddScouts() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const res = await axios.post("https://scouts-qrcode.onrender.com/addscouts",
+        const res = await axios.post("https://rntbktcj-8080.euw.devtunnels.ms/addscouts",
         JSON.stringify(formData), 
     {
       headers: {

@@ -14,7 +14,7 @@ function Form(props) {
 
   const onScannedData = async (data) => {
     const response = await axios.post(
-      "https://scouts-qrcode.onrender.com/api",
+      "https://rntbktcj-8080.euw.devtunnels.ms/api",
       data,
       {
         headers: {
