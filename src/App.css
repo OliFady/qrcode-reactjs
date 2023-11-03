@@ -24,7 +24,6 @@ a:-webkit-any-link {
 ul{
   list-style-type: none;
   overflow: hidden;
-
 }
 li{
   display: inline;
@@ -41,7 +40,7 @@ body{
 
 @media screen and (max-width: 600px) {
     a:link, a:visited {
-        padding: 10px;
+        padding:8px;
     }
     
 }
